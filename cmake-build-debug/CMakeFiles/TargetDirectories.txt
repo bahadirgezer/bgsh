@@ -1,0 +1,3 @@
+/Users/gezer/_boun/5.Donem/322Cmpe/projects/bgsh/cmake-build-debug/CMakeFiles/bgsh.dir
+/Users/gezer/_boun/5.Donem/322Cmpe/projects/bgsh/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/gezer/_boun/5.Donem/322Cmpe/projects/bgsh/cmake-build-debug/CMakeFiles/rebuild_cache.dir
