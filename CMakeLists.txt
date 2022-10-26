@@ -3,4 +3,4 @@ project(bgsh)
 
 set(CMAKE_CXX_STANDARD 23)
 
-add_executable(bgsh src/main.cpp src/bgsh.cpp src/bgsh.h)
+add_executable(bgsh src/main.cpp src/bgsh.cpp src/bgsh.h src/bgsh_history.cpp src/bgsh_history.h)

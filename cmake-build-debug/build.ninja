@@ -58,6 +58,12 @@ build CMakeFiles/bgsh.dir/src/bgsh.cpp.o: CXX_COMPILER__bgsh_Debug /Users/gezer/
   OBJECT_DIR = CMakeFiles/bgsh.dir
   OBJECT_FILE_DIR = CMakeFiles/bgsh.dir/src
 
+build CMakeFiles/bgsh.dir/src/bgsh_history.cpp.o: CXX_COMPILER__bgsh_Debug /Users/gezer/_boun/5.Donem/322Cmpe/projects/bgsh/src/bgsh_history.cpp || cmake_object_order_depends_target_bgsh
+  DEP_FILE = CMakeFiles/bgsh.dir/src/bgsh_history.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -std=gnu++2b
+  OBJECT_DIR = CMakeFiles/bgsh.dir
+  OBJECT_FILE_DIR = CMakeFiles/bgsh.dir/src
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target bgsh
@@ -66,7 +72,7 @@ build CMakeFiles/bgsh.dir/src/bgsh.cpp.o: CXX_COMPILER__bgsh_Debug /Users/gezer/
 #############################################
 # Link the executable bgsh
 
-build bgsh: CXX_EXECUTABLE_LINKER__bgsh_Debug CMakeFiles/bgsh.dir/src/main.cpp.o CMakeFiles/bgsh.dir/src/bgsh.cpp.o
+build bgsh: CXX_EXECUTABLE_LINKER__bgsh_Debug CMakeFiles/bgsh.dir/src/main.cpp.o CMakeFiles/bgsh.dir/src/bgsh.cpp.o CMakeFiles/bgsh.dir/src/bgsh_history.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
   OBJECT_DIR = CMakeFiles/bgsh.dir
   POST_BUILD = :
