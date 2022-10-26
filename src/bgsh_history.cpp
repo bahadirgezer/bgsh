@@ -13,10 +13,16 @@ void bgsh_history::add(const std::string& line) {
 }
 
 bool bgsh_history::contains(const std::string& line) {
+    std::string check, command;
+    if (std::regex_match(line, std::regex{"dididothat\\s*\"?(.*)\"?"}))
+        check = std::regex_replace(line, std::regex{"dididothat\\s*\"?(.*)\"?"}, "$1");
+    else
+        return false;
+    command = resplit(check)[0];
     for (auto & it : *this) {
-        if (it == line) // whole line
+        if (check == it) // whole line
             return true;
-        if (resplit(line)[0] == resplit(it)[0]) // command
+        if (command == resplit(it)[0]) // command
             return true;
     }
     return false;

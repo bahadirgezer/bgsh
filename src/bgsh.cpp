@@ -2,6 +2,9 @@
 // Created by Bahadır Gezer on 24.10.2022.
 //
 
+#include <unistd.h>
+#include <iostream>
+#include <fstream>
 #include "bgsh.h"
 
 int EXIT = 0;
@@ -66,18 +69,10 @@ int exec_bgsh(const std::string& line, const std::vector<std::string>& args) {
             printf("bgsh: dididothat: missing operand\n");
             return 1;
         }
-        if (args[1][0] == '"' && args[1][args[1].size()-1] == '"') {
-            std::string trimmed_command = args[1].substr(1, args[1].size()-2);
-            if (history.contains(trimmed_command))
-                printf("Yes\n");
-            else
-                printf("No\n");
-        } else {
-            if (history.contains(args[1]))
-                printf("Yes\n");
-            else
-                printf("No\n");
-        }
+        if (history.contains(line))
+            printf("Yes\n");
+        else
+            printf("No\n");
 
     } else if (args[0] == "hellotext") {
         //exec_sh("${VISUAL-${EDITOR-nano}}", args);

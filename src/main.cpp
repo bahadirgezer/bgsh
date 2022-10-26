@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <unistd.h>
 #include "bgsh.h"
 
 int main() {

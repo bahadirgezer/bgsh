@@ -5,8 +5,8 @@
 #ifndef BGSH_BGSH_HISTORY_H
 #define BGSH_BGSH_HISTORY_H
 
-#include <string>
 #include <deque>
+#include <string>
 
 class bgsh_history : private std::deque<std::string> {
 public:

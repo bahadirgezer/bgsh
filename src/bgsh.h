@@ -5,11 +5,8 @@
 #ifndef BGSH_BGSH_H
 #define BGSH_BGSH_H
 
-#include <regex>
 #include <unordered_set>
-#include <unistd.h>
-#include <iostream>
-#include <fstream>
+#include <regex>
 #include "bgsh_history.h"
 
 extern const std::unordered_set<std::string> bgsh_commands;
