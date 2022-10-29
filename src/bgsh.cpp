@@ -17,11 +17,12 @@ const std::unordered_set<std::string> bgsh_commands (
          "dididothat",
          "hellotext",
          "exit"}
-         );
+         ); // special commands
 
-bgsh_history history;
+bgsh_history history; // 15 element history buffer
 
 int exec_bgsh(const std::string& line, const std::vector<std::string>& args) {
+    // parses the special command and executes the shell equivalent
     if (args[0] == "listdir") {
         exec_sh("ls", args);
 
@@ -46,9 +47,8 @@ int exec_bgsh(const std::string& line, const std::vector<std::string>& args) {
             }
             std::string pf_line;
             while (std::getline(file, pf_line)) {
-                printf("%s", pf_line.c_str());
-                if (getchar() == '\n')
-                    continue;
+                printf("%s", pf_line.c_str()); // print line by line
+                while (getchar() != '\n'); // wait for enter ignore other inputs
             }
             file.close();
             return 0;
@@ -58,10 +58,10 @@ int exec_bgsh(const std::string& line, const std::vector<std::string>& args) {
                 printf("bgsh: printfile: syntax error near unexpected token '%s'\n", args[2].c_str());
                 return 1;
             }
-            exec_sh("cat " + args[1] + " > " + args[3], args);
+            exec_sh("cat " + args[1] + " > " + args[3], args); // same as cp except the edge cases
             return 0;
         }
-        printf("bgsh: printfile: No such file or directory\n", args[1].c_str());
+        printf("bgsh: printfile: Missing arguments\n", args[1].c_str());
         return 1;
 
     } else if (args[0] == "dididothat") {
@@ -69,7 +69,7 @@ int exec_bgsh(const std::string& line, const std::vector<std::string>& args) {
             printf("bgsh: dididothat: missing operand\n");
             return 1;
         }
-        if (history.contains(line))
+        if (history.contains(line)) // if the buffer class contains the line
             printf("Yes\n");
         else
             printf("No\n");
@@ -78,10 +78,10 @@ int exec_bgsh(const std::string& line, const std::vector<std::string>& args) {
         //exec_sh("${VISUAL-${EDITOR-nano}}", args);
         exec_sh("open -t", args);
 
-    } else if (args[0] == "exit") {
+    } else if (args[0] == "exit") { // exit command, sets the global EXIT variable to 1
         EXIT = 1;
 
-    } else {
+    } else { // default
         printf("bgsh: %s: command not found\n", args[0].c_str());
         return 1;
     }
@@ -92,15 +92,15 @@ int exec_bgsh(const std::string& line, const std::vector<std::string>& args) {
 int exec_sh(const std::string& line, const std::vector<std::string>& args) {
     pid_t pid = fork();
     if (pid == 0) { //child
-        execl("/bin/sh", "sh", "-c", line.c_str(), NULL);
+        execl("/bin/sh", "sh", "-c", line.c_str(), NULL); // pass the line to the shell
         exit(0);
-    } else if (pid > 0) {
+    } else if (pid > 0) { // parent
         int status;
-        if (waitpid(pid, &status, 0) <= 0)
+        if (waitpid(pid, &status, 0) <= 0) // wait for child to finish
             perror("waitpid");
         if (!WIFEXITED(status))
             perror("WIFEXITED");
-        if (WEXITSTATUS(status) != 0) {
+        if (WEXITSTATUS(status) != 0) { // if child exited with error
             if (WEXITSTATUS(status) == 127) {
                 printf("bgsh: %s: command not found\n", args[0].c_str());
             } else {
@@ -114,6 +114,7 @@ int exec_sh(const std::string& line, const std::vector<std::string>& args) {
     return 0;
 }
 
+// tokenizer function
 std::vector<std::string> resplit(const std::string &s, const std::regex &sep_regex) {
     std::sregex_token_iterator iter(s.begin(), s.end(), sep_regex, -1);
     std::sregex_token_iterator end;
@@ -130,7 +131,8 @@ std::string rtrim(const std::string &s, const std::string &delims = WHITESPACE) 
     return (end == std::string::npos) ? "" : s.substr(0, end + 1);
 }
 
+// string trimming function, removes characters from the beginning and end of the string.
+// default characters are whitespace characters
 std::string trim(const std::string &s, const std::string &delims) {
     return rtrim(ltrim(s, delims), delims);
 }
-
