@@ -15,8 +15,6 @@
  */
 class bgsh_history : private std::deque<std::string> {
 public:
-    bgsh_history() = default;
-    ~bgsh_history() = default;
 
     /**
      * Adds a command to the history. If the history is full, the oldest command is removed.

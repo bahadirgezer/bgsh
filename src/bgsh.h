@@ -9,7 +9,6 @@
 #include <regex>
 #include "bgsh_history.h"
 
-extern const std::unordered_set<std::string> bgsh_commands;
 extern int EXIT;
 extern bgsh_history history;
 
@@ -22,7 +21,7 @@ const std::string WHITESPACE = " \n\r\t\f\v";
  * @param sep_regex separator regex pattern
  * @return vector of substrings - tokens
  */
-std::vector<std::string> resplit(const std::string &s, const std::regex &sep_regex = std::regex{"\\s+"});
+std::vector<std::string> resplit(const std::string &s, const std::regex &sep_regex = std::regex("\\s+"));
 
 /**
  * Executes the special shell commands. It does this by converting the special

@@ -6,6 +6,18 @@
 int main() {
     std::vector<std::string> args;
     std::string line;
+    //std::unordered_set<std::string> bgsh_commands (
+    // {"listdir","mycomputername","whatsmyip","printfile",
+    // "dididothat","hellotext","exit"}); // special commands
+
+    std::unordered_set<std::string> bgsh_commands;
+    bgsh_commands.insert("listdir");
+    bgsh_commands.insert("mycomputername");
+    bgsh_commands.insert("whatsmyip");
+    bgsh_commands.insert("printfile");
+    bgsh_commands.insert("dididothat");
+    bgsh_commands.insert("hellotext");
+    bgsh_commands.insert("exit"); //initializer_list did not work?
 
     while(!EXIT) { // terminates after exit command
         printf(">>> ");
@@ -16,7 +28,8 @@ int main() {
         if (args.empty())
             continue;
 
-        if (bgsh_commands.contains(args[0])) // if command is from the special commands
+        // if command is from the special commands
+        if (bgsh_commands.find(args[0]) != bgsh_commands.end())
             exec_bgsh(line, args);
         else if (args[0] == "cd") { // ch of parent process
             if (args.size() == 1)

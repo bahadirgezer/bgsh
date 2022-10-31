@@ -5,19 +5,12 @@
 #include <unistd.h>
 #include <iostream>
 #include <fstream>
+#include <vector>
 #include "bgsh.h"
 
 int EXIT = 0;
 
-const std::unordered_set<std::string> bgsh_commands (
-        {"listdir",
-         "mycomputername",
-         "whatsmyip",
-         "printfile",
-         "dididothat",
-         "hellotext",
-         "exit"}
-         ); // special commands
+
 
 bgsh_history history; // 15 element history buffer
 
@@ -42,7 +35,7 @@ int exec_bgsh(const std::string& line, const std::vector<std::string>& args) {
             std::fstream file;
             file.open(args[1], std::ios::in);
             if (!file.is_open()) {
-                printf("bgsh: printfile: No such file or directory\n", args[1].c_str());
+                printf("bgsh: printfile: No such file or directory\n");
                 return 1;
             }
             std::string pf_line;
@@ -61,7 +54,7 @@ int exec_bgsh(const std::string& line, const std::vector<std::string>& args) {
             exec_sh("cat " + args[1] + " > " + args[3], args); // same as cp except the edge cases
             return 0;
         }
-        printf("bgsh: printfile: Missing arguments\n", args[1].c_str());
+        printf("bgsh: printfile: Missing arguments\n");
         return 1;
 
     } else if (args[0] == "dididothat") {
@@ -76,7 +69,7 @@ int exec_bgsh(const std::string& line, const std::vector<std::string>& args) {
 
     } else if (args[0] == "hellotext") {
         //exec_sh("${VISUAL-${EDITOR-nano}}", args);
-        exec_sh("open -t", args);
+        popen("gedit", "w");// open gedit
 
     } else if (args[0] == "exit") { // exit command, sets the global EXIT variable to 1
         EXIT = 1;
@@ -118,7 +111,8 @@ int exec_sh(const std::string& line, const std::vector<std::string>& args) {
 std::vector<std::string> resplit(const std::string &s, const std::regex &sep_regex) {
     std::sregex_token_iterator iter(s.begin(), s.end(), sep_regex, -1);
     std::sregex_token_iterator end;
-    return {iter, end};
+    std::vector<std::string> tokens(iter, end);
+    return tokens;
 }
 
 std::string ltrim(const std::string &s, const std::string &delims = WHITESPACE) {
